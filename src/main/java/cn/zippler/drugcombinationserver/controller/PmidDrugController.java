@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/pmc5")
+@RequestMapping("/pmid5")
 public class PmidDrugController {
     private PmidDrugDao pmidDrugDao;
 

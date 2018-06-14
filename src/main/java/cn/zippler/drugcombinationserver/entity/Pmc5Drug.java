@@ -12,15 +12,15 @@ public class Pmc5Drug {
     private long id;
     @Column(name = "source")
     private String source;
-    @Column(name = "Cell HMS LINCS ID")
+    @Column(name = "`Cell HMS LINCS ID`")
     private String cellHmsLincsId;
-    @Column(name = "Cell Name")
+    @Column(name = "`Cell Name`")
     private String cellName;
-    @Column(name = "Small-Molecule1-HMS-LINCS-ID")
+    @Column(name = "`Small-Molecule1-HMS-LINCS-ID`")
     private String smallMolecule1HmsLincsId;
     @Column(name = "SM1Name")
     private String sm1Name;
-    @Column(name = "Small Molecule 2 HMS LINCS ID")
+    @Column(name = "`Small Molecule 2 HMS LINCS ID`")
     private String smallMolecule2HmsLincsId;
     @Column(name = "SM2Name")
     private String sm2Name;
@@ -28,15 +28,15 @@ public class Pmc5Drug {
     private String conc1;
     @Column(name = "Conc2")
     private String conc2;
-    @Column(name = "Small Mol Conc Unit")
+    @Column(name = "`Small Mol Conc Unit`")
     private String smallMolConcUnit;
-    @Column(name = "Time Point")
+    @Column(name = "`Time Point`")
     private String timePoint;
-    @Column(name = "Time Point Unit")
+    @Column(name = "`Time Point Unit`")
     private String timePointUnit;
-    @Column(name = "Mean Relative Viability")
+    @Column(name = "`Mean Relative Viability`")
     private String meanRelativeViablity;
-    @Column(name = "Mean Apoptosis Fraction")
+    @Column(name = "`Mean Apoptosis Fraction`")
     private String meanApoptosisFraction;
     @Column(name = "Growth")
     private String growth;

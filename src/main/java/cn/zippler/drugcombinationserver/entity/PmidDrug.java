@@ -34,7 +34,7 @@ public class PmidDrug {
     private String viability3;
     @Column(name = "viability4")
     private String viability4;
-    @Column(name = "mean viability")
+    @Column(name = "`mean viability`")
     private String meanViability;
     @Column(name = "`mu/muMax`")
     private String muMax;

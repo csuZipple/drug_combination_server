@@ -14,16 +14,16 @@ public class Pmc3Drug {
     @Column(name = "source")
     private String source;
 
-    @Column(name = "Drug1 id")
+    @Column(name = "`Drug1 id`")
     private String drug1Id;
 
     @Column(name = "Drug1Name")
     private String drug1Name;
 
-    @Column(name = "DRUG1 Target")
+    @Column(name = "`DRUG1 Target`")
     private String drug1Target;
 
-    @Column(name = "Drug2 id")
+    @Column(name = "`Drug2 id`")
     private String drug2Id;
 
     @Column(name = "Drug2Name")
