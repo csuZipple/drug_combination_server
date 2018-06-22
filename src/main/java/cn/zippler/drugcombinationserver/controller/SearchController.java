@@ -3,10 +3,7 @@ package cn.zippler.drugcombinationserver.controller;
 import cn.zippler.drugcombinationserver.dao.*;
 import cn.zippler.drugcombinationserver.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/query")
 public class SearchController {
     /*
@@ -41,10 +39,10 @@ public class SearchController {
         //each step cost too much time ...
         long current =System.currentTimeMillis();
         long origin = current;
-        List<IntegratedDrug> integratedDrug1List = integratedDrugDao.findByDrug1NameLike(value);
+        List<IntegratedDrug> integratedDrug1List = integratedDrugDao.findByDrug1NameContaining(value);
         System.out.println("第一部分搜索："+(System.currentTimeMillis()-current));
         current = System.currentTimeMillis();
-        List<IntegratedDrug> integratedDrug2List = integratedDrugDao.findByDrug2NameLike(value);
+        List<IntegratedDrug> integratedDrug2List = integratedDrugDao.findByDrug2NameContaining(value);
         System.out.println("第二部分搜索："+(System.currentTimeMillis()-current));
         current = System.currentTimeMillis();
 

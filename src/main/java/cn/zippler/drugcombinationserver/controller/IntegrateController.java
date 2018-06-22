@@ -8,15 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/integrate")
 public class IntegrateController {
     private IntegratedDrugDao integratedDrugDao;
@@ -40,5 +37,35 @@ public class IntegrateController {
         Sort sort = new Sort(Sort.Direction.ASC, "id");
         Pageable pageable = new PageRequest(page, size, sort);
         return integratedDrugDao.findAll(pageable);
+    }
+
+    @RequestMapping("/search")
+    @ResponseBody
+    public List<IntegratedDrug> search(@RequestParam("q")String value){
+        long current =System.currentTimeMillis();
+        List<IntegratedDrug> integratedDrug1List = integratedDrugDao.findByDrug1NameContaining(value);
+        System.out.println("搜索第一部分耗时："+(System.currentTimeMillis()- current)+" ms");
+        if (integratedDrug1List.size()!=0){
+            return integratedDrug1List;
+        }
+        List<IntegratedDrug> integratedDrug2List = integratedDrugDao.findByDrug2NameContaining(value);
+        System.out.println("搜索总耗时："+(System.currentTimeMillis()- current)+" ms");
+        integratedDrug1List.addAll(integratedDrug2List);
+        return integratedDrug1List;// TO achieve this function.
+    }
+
+    @RequestMapping("/drug1Name/{name}")
+    public List<String> findAllDrug1Name(@PathVariable("name") String name) {
+        List<IntegratedDrug> integratedDrugList = integratedDrugDao.findByDrug1Name(name);
+        Map<String, Integer> map = new HashMap<>();
+        List<String> result = new ArrayList<>();
+
+        for (IntegratedDrug temp : integratedDrugList) {
+            if (map.get(temp.getDrug2Name()) == null) {
+                map.put(temp.getDrug2Name(), 1);
+                result.add(temp.getDrug2Name());
+            }
+        }
+        return result;
     }
 }
