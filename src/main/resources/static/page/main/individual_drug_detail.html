@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="DrugCombDB is devoted to the research and development of multi-component drugs.">
+    <meta name="author" content="zipple">
+    <meta name="keywords" content="drug,combination,database">
+    <title>DrugCombDB - the drug combination database</title>
+    <link href="../../resource/css/reset.css" type="text/css" rel="stylesheet"/>
+    <link href="../../resource/css/style.css" type="text/css" rel="stylesheet"/>
+    <link href="../../resource/css/dcdb.css" type="text/css" rel="stylesheet"/>
+    <!-- @media query -->
+</head>
+<body>
+    <header>
+        <a href="main.html" class="zl_logo">DrugCombDB</a>
+        <div class="zl_tabs">
+            <a href="main.html">home</a>
+            <a href="browser.html">browser</a>
+            <a href="tutorial.html">tutorial</a>
+            <a href="download.html">download</a>
+            <div class="zl_drop_down">contact</div>
+        </div>
+
+        <div class="zl_search_wrapper">
+            <input type="text" title="" placeholder="Search drugs or other..."/>
+            <img src="../../resource/images/icon/search.png" alt="search">
+
+            <div class="zl_search_tips">
+                <ul>
+                    <li>This is tips placeholder</li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section class="zl_page zl_individual_drug_page">
+            <main>
+                <!-- get more information about the individual drug -->
+                <p>The Drug <span class="zl_drug1Name" style="color: #ff6500;">Vemurafenib</span> 's Combination drugs Scatter Graph.</p>
+
+                <div id="lineBar" style="width: 80%;height: 500px;padding: 10px;box-sizing:border-box;">
+
+                </div>
+
+                <table class="zl_table">
+                    <caption>Combination Drug Information</caption>
+                    <tr>
+                        <td><span>Filter:</span>&nbsp;</td>
+                        <td colspan="2">
+                            <label>
+                                Entries:
+                                <select class="entries">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr><th>id</th><th>fid</th><th>Drug1Name</th><th>Drug2Name</th><th>Conc1</th><th>Conc2</th><th>Growth</th><th>cellline</th><th>source</th></tr>
+                </table>
+                <!-- about paging block -->
+                <div class="zl_paging_black">
+                    <span class="pre_page disabled">&lt; </span>
+                    <span class="current">0</span>
+                    <a href="#!" class="next_page">&gt; </a>
+                    <input type="number" class="jump_page" title="jump to page..">
+                    <span style="margin-left: 10px;">Total page: <span class="total_page"></span></span>
+                </div>
+            </main>
+    </section>
+
+    <footer>
+        <div class="bottom-info">
+            <div>Copyright &copy; 2018 CSU. All Rights Reserved. </div>
+            <div>DrugCombDB</div>
+        </div>
+    </footer>
+
+<!--  about dialog  -->
+    <div class="zl_contact_dialog">
+        <h3>Get in touch with us</h3>
+        <div class="zl_form_row">
+            <div class="zl_input">
+                <p>First Name:</p>
+                <input type="text" title="">
+            </div>
+
+            <div class="zl_input">
+                <p>Last Name:</p>
+                <input type="text" title="">
+            </div>
+        </div>
+
+        <div class="zl_form_row">
+            <div class="zl_input">
+                <p>Your Email:</p>
+                <input type="text" title="">
+            </div>
+        </div>
+
+        <div class="zl_form_row">
+            <div class="zl_input zl_full_row">
+                <p>How can we help?</p>
+                <textarea name="" id="" cols="30" rows="5" title="" placeholder="All comments and suggestions are welcome."></textarea>
+            </div>
+        </div>
+
+
+        <div class="zl_form_row">
+            <div class="zl_input">
+                <button class="zl_btn zl_submit_btn" onclick="onSubmit()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="../../resource/js/jquery.js"></script>
+<script src="../../resource/js/echarts.min.js"></script>
+<script type="text/javascript" src="../../resource/js/base.js"></script>
+<script>
+    let drug1Name = getParamFromUrl("drug1Name");
+    console.log(drug1Name);
+    if (drug1Name===""||drug1Name===null){
+        alert("error url")
+    }else{
+        $(".zl_drug1Name").text(drug1Name);//update the value
+        let dom = document.getElementById("lineBar");
+        let myChart = echarts.init(dom);
+        let yAxisName = drug1Name+"/Concentrate";
+        let xAxisData =[];
+        let jsonData=[];
+        myChart.showLoading();
+        option = {
+            tooltip: {
+                trigger: 'item',
+                axisPointer: {
+                    type: 'cross'
+                },
+                formatter: function(datas, ticket, callback) {
+                    return"conc1: " + datas.data[2].conc1+
+                        '<br/>' + "conc2: " + datas.data[2].conc2+
+                        '<br/>' + "drug2name: " + datas.data[2].drug2Name+
+                        '<br/>' + "cellline: " + datas.data[2].cellline +
+                        '<br/>' + "growth: " + datas.data[2].growth +
+                        '<br/>' + "source: " + datas.data[2].source;
+                }
+            },
+            dataZoom: [
+                {
+                    type: 'inside',
+                    throttle:'50',
+                    minValueSpan:4,
+                    start: 0,
+                    end: 15
+                }
+            ],
+            xAxis: {
+                // type: 'value',
+                type: 'category',
+                name:"drug2Name",
+                boundaryGap: true,
+                data: xAxisData,
+                axisLine:{
+                    symbol:['none', 'arrow'],
+                    symbolSize:[8,10]
+                },
+                axisTick:{
+                    alignWithLabel:false,
+                    inside:true,
+                    interval:3
+                    // length:10
+                },
+                axisLabel:{
+                    /* formatter:function (value,index) {
+                         return "value:"+value;
+                     }*/
+                    interval:2,
+                    rotate:45
+                },
+                splitLine:{
+                    show:true,
+                    lineStyle:{
+                        width: 1,
+                        type: 'dashed',
+                    },
+                    interval:3
+                }
+            },
+            yAxis: {
+                name:yAxisName,
+                axisLine:{
+                    symbol:['none', 'arrow'],
+                    symbolSize:[8,10]
+                },
+                splitLine:{
+                    show:true,
+                    lineStyle:{
+                        width: 1,
+                        type: 'dashed',
+                    }
+                }
+            },
+            series: [{
+                symbolSize: 10,
+                itemStyle: {
+                    normal: {
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(120, 36, 50, 0.5)',
+                        shadowOffsetY: 5,
+                        color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+                            offset: 0,
+                            color: 'rgb(251, 118, 123)'
+                        }, {
+                            offset: 1,
+                            color: 'rgb(204, 46, 72)'
+                        }])
+                    }
+                },
+                // data:[[8, 3]],
+                data:jsonData,
+                /*   label: {
+                       emphasis: {
+                           show: true,
+                           formatter: function (param) {
+                               return param.data;
+                           },
+                           position: 'right'
+                       }
+                   },*/
+                type: 'scatter'
+            }]
+        };
+        //get json data.
+        myChart.setOption(option);
+        $.get(rootUrl+"/integrate/drug1Name/"+drug1Name).done(function (data) {
+            //update option.
+            normalizeJson(data);
+            myChart.hideLoading();
+            myChart.setOption(option);
+        });
+
+        /* normalize json data */
+        function normalizeJson(data) {
+            //    xAxisData  jsonData
+            data.drug2nameList.map(function (ele, index) {
+                for (let i = 0; i < 3; i++) {
+                    xAxisData.push(ele);
+                }
+            });
+
+            data.drugList.map(function (ele, index) {
+                //set scatter data...
+                let i = 0;
+                for (let j = 0; j < data.drug2nameList.length; j++) {
+                    if ( data.drug2nameList[j]===ele.drug2Name) {
+                        i = j;
+                        break;
+                    }
+                }
+                let conc2 = parseInt(ele.conc2)+i*3;//but the concentration maybe more than 3..
+                let tempArray = [conc2,parseInt(ele.conc1),ele];
+                jsonData.push(tempArray)/*should remove the repeat data in the backstage*/
+            });
+            console.log(jsonData);
+        }
+
+
+    }
+
+</script>
+</html>

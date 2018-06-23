@@ -55,17 +55,32 @@ public class IntegrateController {
     }
 
     @RequestMapping("/drug1Name/{name}")
-    public List<String> findAllDrug1Name(@PathVariable("name") String name) {
+    public Map<String, Object> findCombinationDrug(@PathVariable("name") String name){
+        Map<String, Object> resultMap = new HashMap<>();
         List<IntegratedDrug> integratedDrugList = integratedDrugDao.findByDrug1Name(name);
-        Map<String, Integer> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         List<String> result = new ArrayList<>();
+        List<IntegratedDrug> integratedDistinctDrugList = new ArrayList<>();
 
-        for (IntegratedDrug temp : integratedDrugList) {
+        System.out.println("the former size:"+integratedDrugList.size());
+
+        for (int i = 0; i < integratedDrugList.size(); i++) {
+            IntegratedDrug temp = integratedDrugList.get(i);
             if (map.get(temp.getDrug2Name()) == null) {
-                map.put(temp.getDrug2Name(), 1);
+                map.put(temp.getDrug2Name(),temp);
                 result.add(temp.getDrug2Name());
+                integratedDistinctDrugList.add(temp);
+            }else{
+                integratedDrugList.remove(temp);//remove the repeat data.
             }
         }
-        return result;
+
+        System.out.println("after distinct:"+integratedDrugList.size());
+        System.out.println("integratedDistinctDrugList:"+integratedDistinctDrugList.size());
+
+        resultMap.put("drug2nameList",result);
+        resultMap.put("drugList",integratedDrugList);
+        resultMap.put("drugDistinctList",integratedDistinctDrugList);
+        return resultMap;
     }
 }
