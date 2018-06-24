@@ -723,10 +723,10 @@ footer{
     width: 100%;
     height: 100%;
     position: fixed;
-    z-index: auto;
     display:flex;
     align-items:center;
     justify-content:center;
+    z-index: 1;
 }
 
 @-webkit-keyframes loading-2{

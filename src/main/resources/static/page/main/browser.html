@@ -35,10 +35,10 @@
 </header>
 <section class="zl_page zl_browser_page">
     <main>
-        <figure>
+        <figure class="zl_browser_combination">
             <img src="../../resource/images/alphabet-blur-books-301920.jpg" alt="">
             <figcaption>
-                <a href="./drug_detail.html">Browser drug combinations</a>
+                <a href="#!">Browser drug combinations</a>
             </figcaption>
             <p>All drug combinations and their components.</p>
         </figure>
@@ -131,6 +131,11 @@
 <script type="text/javascript" src="../../resource/js/base.js"></script>
 <script type="text/javascript" src="../../resource/js/echarts.min.js"></script>
 <script type="text/javascript">
+
+    $(".zl_browser_combination").click(function () {
+        window.location.href="./drug_detail.html";
+    });
+
     let target = echarts.init(document.getElementById('zl_target_container'));
     let combination = echarts.init(document.getElementById('zl_combination_container'));
 

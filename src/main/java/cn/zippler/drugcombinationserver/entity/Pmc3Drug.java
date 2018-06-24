@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "`pmc3926026(459agents)`")
+@Table(name = "`PMC3926026(459agents)`")
 public class Pmc3Drug {
     @Id
     private long id;

@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * the ncidatabase table;
  */
 @Entity
-@Table(name = "ncidatabase")
+@Table(name = "NCIdatabase")
 public class NciDrug {
     @Id
     private long id;

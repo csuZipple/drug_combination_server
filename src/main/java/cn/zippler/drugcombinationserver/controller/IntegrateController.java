@@ -3,7 +3,6 @@ package cn.zippler.drugcombinationserver.controller;
 import cn.zippler.drugcombinationserver.dao.IntegratedDrugDao;
 import cn.zippler.drugcombinationserver.entity.IntegratedDrug;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,6 +34,7 @@ public class IntegrateController {
     @RequestMapping("/page")
     public Page<IntegratedDrug> getPage(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "10") Integer size){
         Sort sort = new Sort(Sort.Direction.ASC, "id");
+        System.out.println("received the request of paging..current page is:"+page+" and size is"+size);
         Pageable pageable = new PageRequest(page, size, sort);
         return integratedDrugDao.findAll(pageable);
     }
@@ -56,31 +56,42 @@ public class IntegrateController {
 
     @RequestMapping("/drug1Name/{name}")
     public Map<String, Object> findCombinationDrug(@PathVariable("name") String name){
+        long current = System.currentTimeMillis();
         Map<String, Object> resultMap = new HashMap<>();
         List<IntegratedDrug> integratedDrugList = integratedDrugDao.findByDrug1Name(name);
         Map<String, Object> map = new HashMap<>();
-        List<String> result = new ArrayList<>();
-        List<IntegratedDrug> integratedDistinctDrugList = new ArrayList<>();
+        Map<String, ArrayList<Object>> drug2Map = new HashMap<String, ArrayList<Object>>();
+        List<String> cellline = new ArrayList<>();
+        List<String> drug2NameList = new ArrayList<>();
 
         System.out.println("the former size:"+integratedDrugList.size());
 
         for (int i = 0; i < integratedDrugList.size(); i++) {
             IntegratedDrug temp = integratedDrugList.get(i);
-            if (map.get(temp.getDrug2Name()) == null) {
-                map.put(temp.getDrug2Name(),temp);
-                result.add(temp.getDrug2Name());
-                integratedDistinctDrugList.add(temp);
-            }else{
-                integratedDrugList.remove(temp);//remove the repeat data.
+            if (map.get(temp.getCellline()) == null) {
+                map.put(temp.getCellline(),temp);
+                cellline.add(temp.getCellline());
+            }
+
+            if (temp.getDrug2Name()!=null&&temp.getDrug2Name().equals("null")) {
+                if (drug2Map.get(temp.getDrug2Name()) == null) {
+                    drug2Map.put(temp.getDrug2Name(), new ArrayList<>());
+                    drug2NameList.add(temp.getDrug2Name());
+                } else {
+                    ArrayList<Object> tempList = drug2Map.get(temp.getDrug2Name());
+                    tempList.add(temp);
+                    drug2Map.put(temp.getDrug2Name(), tempList);
+                }
             }
         }
 
         System.out.println("after distinct:"+integratedDrugList.size());
-        System.out.println("integratedDistinctDrugList:"+integratedDistinctDrugList.size());
 
-        resultMap.put("drug2nameList",result);
+        resultMap.put("cellline",cellline);
         resultMap.put("drugList",integratedDrugList);
-        resultMap.put("drugDistinctList",integratedDistinctDrugList);
+        resultMap.put("drug2Map",drug2Map);
+        resultMap.put("drug2NameList",drug2NameList);
+        System.out.println("the request/drug1Name/"+name+" total cost:"+(System.currentTimeMillis()-current)+" ms");
         return resultMap;
     }
 }
