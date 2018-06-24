@@ -65,25 +65,48 @@ public class IntegrateController {
         List<String> drug2NameList = new ArrayList<>();
 
         System.out.println("the former size:"+integratedDrugList.size());
+        if (integratedDrugList.size()==0){
+            integratedDrugList = integratedDrugDao.findByDrug2Name(name);
 
-        for (int i = 0; i < integratedDrugList.size(); i++) {
-            IntegratedDrug temp = integratedDrugList.get(i);
-            if (map.get(temp.getCellline()) == null) {
-                map.put(temp.getCellline(),temp);
-                cellline.add(temp.getCellline());
+            for (int i = 0; i < integratedDrugList.size(); i++) {
+                IntegratedDrug temp = integratedDrugList.get(i);
+                if (map.get(temp.getCellline()) == null) {
+                    map.put(temp.getCellline(),temp);
+                    cellline.add(temp.getCellline());
+                }
+
+                if (temp.getDrug1Name()!=null&&!temp.getDrug1Name().equals("null")) {
+                    if (drug2Map.get(temp.getDrug1Name()) == null) {
+                        drug2Map.put(temp.getDrug1Name(), new ArrayList<>());
+                        drug2NameList.add(temp.getDrug1Name());
+                    } else {
+                        ArrayList<Object> tempList = drug2Map.get(temp.getDrug1Name());
+                        tempList.add(temp);
+                        drug2Map.put(temp.getDrug1Name(), tempList);
+                    }
+                }
             }
+        }else{
+            for (int i = 0; i < integratedDrugList.size(); i++) {
+                IntegratedDrug temp = integratedDrugList.get(i);
+                if (map.get(temp.getCellline()) == null) {
+                    map.put(temp.getCellline(),temp);
+                    cellline.add(temp.getCellline());
+                }
 
-            if (temp.getDrug2Name()!=null&&temp.getDrug2Name().equals("null")) {
-                if (drug2Map.get(temp.getDrug2Name()) == null) {
-                    drug2Map.put(temp.getDrug2Name(), new ArrayList<>());
-                    drug2NameList.add(temp.getDrug2Name());
-                } else {
-                    ArrayList<Object> tempList = drug2Map.get(temp.getDrug2Name());
-                    tempList.add(temp);
-                    drug2Map.put(temp.getDrug2Name(), tempList);
+                if (temp.getDrug2Name()!=null&&!temp.getDrug2Name().equals("null")) {
+                    if (drug2Map.get(temp.getDrug2Name()) == null) {
+                        drug2Map.put(temp.getDrug2Name(), new ArrayList<>());
+                        drug2NameList.add(temp.getDrug2Name());
+                    } else {
+                        ArrayList<Object> tempList = drug2Map.get(temp.getDrug2Name());
+                        tempList.add(temp);
+                        drug2Map.put(temp.getDrug2Name(), tempList);
+                    }
                 }
             }
         }
+
 
         System.out.println("after distinct:"+integratedDrugList.size());
 

@@ -36,10 +36,13 @@
 <section class="zl_page zl_individual_drug_page">
     <main>
         <!-- get more information about the individual drug -->
-        <p>The Drug <span class="zl_drug1Name" style="color: #ff6500;">Vemurafenib</span> 's Combination drugs Scatter Graph.</p>
+        <button class="zl_btn">Back</button>
+        <div class="zl_scatter_graph">
+            <p>The Drug <span class="zl_drug1Name" style="color: #ff6500;">Default drug name</span> 's Combination drugs Scatter Graph.</p>
 
-        <div id="lineBar" style="width: 80%;height: 500px;padding: 10px;box-sizing:border-box;">
+            <div id="lineBar" style="width: 80%;height: 500px;padding: 10px;box-sizing:border-box;">
 
+            </div>
         </div>
 
         <table class="zl_table">
@@ -125,6 +128,9 @@
 <script>
     let drug1Name = getParamFromUrl("drug1Name");
     console.log(drug1Name);
+    $(".zl_btn").click(function () {
+        window.history.back();
+    });
     if (drug1Name===""||drug1Name===null){
         alert("error url")
     }else{
@@ -155,7 +161,11 @@
                 },
                 formatter: function(datas, ticket, callback) {
                     let drug = datas.data[2];
-                    return "<div style=\"border-bottom:1px solid #FFFFFF;font-size:14px;padding: 1px;\">"+drug.drug2Name+"</div>"+
+                    let drugName = drug.drug2Name;
+                    if (drug1Name===drug.drug2Name){
+                        drugName =drug.drug1Name;
+                    }
+                    return "<div style=\"border-bottom:1px solid #FFFFFF;font-size:14px;padding: 1px;\">"+drugName+"</div>"+
                         "<p style='font-size:12px;text-align: left; padding: 2px 0;'>" +
                         "Concentrate1: "+drug.conc1+"</br>"+
                         "Concentrate2: "+drug.conc2+"</br>"+
