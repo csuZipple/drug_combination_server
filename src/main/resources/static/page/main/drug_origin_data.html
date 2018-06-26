@@ -37,34 +37,10 @@
        <!--the drug detail-->
         <!--显示不同的药物组合-->
             <main>
-                <table class="zl_table">
+                <button class="zl_btn">Back</button>
+                <table class="zl_vertical_table">
                     <caption>Combination Drug Information</caption>
-                    <tr>
-                        <td><span>Filter:</span>&nbsp;</td>
-                        <td colspan="2">
-                            <label>
-                                Entries:
-                                <select class="entries">
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                    <option value="200">200</option>
-                                </select>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr><th>Drug1Name</th><th>Drug2Name</th><th>Conc1</th><th>Conc2</th><th>Growth</th><th>cellline</th><th>source</th></tr>
                 </table>
-                <!-- about paging block -->
-                <div class="zl_paging_black">
-                    <span class="pre_page disabled">&lt; </span>
-                    <span class="current">0</span>
-                    <a href="#!" class="next_page">&gt; </a>
-                    <input type="number" class="jump_page" title="jump to page..">
-                    <button class="zl_go">GO</button>
-                    <span style="margin-left: 10px;">Total page: <span class="total_page"></span></span>
-                </div>
             </main>
     </section>
 
@@ -127,64 +103,93 @@
 <script src="../../resource/js/jquery.js"></script>
 <script type="text/javascript" src="../../resource/js/base.js"></script>
 <script>
-
-    /*  about the page controls  */
-    let currentSize = 10;//default
-    loadDrugPage(0,currentSize);/*The default is 0 ,size is 10*/
-    let page =$(".jump_page");
-    page.bind("input",function () {
-        if(page.val()<0){
-            page.val(0);
-        }
-        let maxPage = parseInt($(".total_page").text());
-        if (maxPage!==""){
-            if (page.val()>maxPage){
-                page.val(maxPage);
+    $(".zl_btn").click(function () {
+        window.history.back();
+    });
+    //load from backstage.
+        let data={
+            data:{"id" : 2,
+                "source" : "PMC3926026",
+                "drug1Id" : "NCGC00015609-06",
+                "drug1Name" : "Lonidamine",
+                "drug1Target" : "Phosphotransferase (HK) (Trypanosoma brucei) Inhibitor",
+                "drug2Id" : "NCGC00187912",
+                "drug2Name" : "ibrutinib",
+                "conc1" : "2.5,0.625,0.15625,0.0390626,0.0097656,0.0",
+                "conc2" : "0.05,0.0125,0.003125,7.812000000000001E-4,1.954E-4,0.0",
+                "mqcClass" : "good",
+                "mqcConfidence" : "0.944847",
+                "medianExcess" : "48.85378",
+                "numExcess" : "4",
+                "excessHSA" : "76.97292",
+                "excessCRX" : "113111.341",
+                "ls3x3" : "0",
+                "beta" : "1.00869",
+                "gamma" : "1.00869",
+                "growth" : "0.66603",
+                "dbSumPos" : "0.91793",
+                "dbSumNeg" : "-0.1482"
+            },
+            key:["id","source"]
+        };
+        init();
+        function init() {
+            let url = createRequest();
+            if (url===""){
+                $(".zl_loader").css("display","none");
+                return;
             }
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                beforeSend:function(){
+                    $(".zl_loader").css("display","flex");
+                },
+                success: function (data) {
+                    $(".zl_loader").css("display","none");
+                    createTableTr(data);
+                },
+            });
+
         }
-    });
 
-    $(".pre_page").click(function () {
-        if($(".pre_page").hasClass("disable")){
-            console.log("can't jump")
-        }else{
-            let current = $(".current").text();
-            gotoPage(parseInt(current)-1,currentSize);
+        function createTableTr(data) {
+            let str ="";
+            for(let key in data){
+                console.log(key+':'+data[key]);
+                str+="<tr><th>"+key+"</th><td>"+data[key]+"</td></tr>";
+            }
+            $(".zl_vertical_table").append($(str));
         }
-    });
-    $(".next_page").click(function () {
-        if($(".next_page").hasClass("disable")){
-            console.log("can't jump")
-        }else{
-            let current = $(".current").text();
-            gotoPage(parseInt(current)+1,currentSize);
+
+        function createRequest() {
+           let fid =  getParamFromUrl("fid");
+           let source =  getParamFromUrl("source");
+           if(fid===""||fid===null||source===""||source===null){
+               alert("error url");
+               return "";
+           }else{
+               let request="";
+               switch(source){
+                   case "PMC3926026":
+                       request ="/pmc3/";
+                       break;
+                   case "PMC5248573":
+                       request="/pmc5/";
+                       break;
+                   case "NCI":
+                       request="/nci/";
+                       break;
+                   case "PMID26983881":
+                       request="/pmid2/";
+                       break;
+                   default:
+                       alert("error request");
+               }
+               return rootUrl+request+"list/"+fid;
+           }
         }
-    });
-
-/*    page.blur(function () {
-        gotoPage(page.val());
-    });*/
-
-    page.keydown(function (event) {
-       if (event.keyCode===13){
-           gotoPage(parseInt(page.val()),currentSize);
-       }
-    });
-
-    $(".zl_go").click(function () {
-        if (isNaN(parseInt(page.val()))){
-            return;
-        }
-        gotoPage(parseInt(page.val()),currentSize);
-    });
-
-    $(".entries").change(function () {
-        if ($(this).children('option:selected').val()!==currentSize){
-            currentSize = $(this).children('option:selected').val();
-            loadDrugPage(0,currentSize);
-        }
-    });
-
 
 </script>
 </html>

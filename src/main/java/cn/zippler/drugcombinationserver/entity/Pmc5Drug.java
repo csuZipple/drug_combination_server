@@ -19,11 +19,11 @@ public class Pmc5Drug {
     @Column(name = "`Small-Molecule1-HMS-LINCS-ID`")
     private String smallMolecule1HmsLincsId;
     @Column(name = "SM1Name")
-    private String sm1Name;
+    private String drug1Name;
     @Column(name = "`Small Molecule 2 HMS LINCS ID`")
     private String smallMolecule2HmsLincsId;
     @Column(name = "SM2Name")
-    private String sm2Name;
+    private String drug2Name;
     @Column(name = "Conc1")
     private String conc1;
     @Column(name = "Conc2")
@@ -81,12 +81,12 @@ public class Pmc5Drug {
         this.smallMolecule1HmsLincsId = smallMolecule1HmsLincsId;
     }
 
-    public String getSm1Name() {
-        return sm1Name;
+    public String getDrug1Name() {
+        return drug1Name;
     }
 
-    public void setSm1Name(String sm1Name) {
-        this.sm1Name = sm1Name;
+    public void setDrug1Name(String drug1Name) {
+        this.drug1Name = drug1Name;
     }
 
     public String getSmallMolecule2HmsLincsId() {
@@ -97,12 +97,12 @@ public class Pmc5Drug {
         this.smallMolecule2HmsLincsId = smallMolecule2HmsLincsId;
     }
 
-    public String getSm2Name() {
-        return sm2Name;
+    public String getDrug2Name() {
+        return drug2Name;
     }
 
-    public void setSm2Name(String sm2Name) {
-        this.sm2Name = sm2Name;
+    public void setDrug2Name(String drug2Name) {
+        this.drug2Name = drug2Name;
     }
 
     public String getConc1() {

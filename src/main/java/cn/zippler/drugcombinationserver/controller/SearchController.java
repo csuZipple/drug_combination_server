@@ -61,22 +61,22 @@ public class SearchController {
 
         current = System.currentTimeMillis();
 
-        List<Pmc5Drug> pmc5Drug1sList = pmc5DrugDao.findBySm1NameLike(value);
+        List<Pmc5Drug> pmc5Drug1sList = pmc5DrugDao.findByDrug1NameLike(value);
         System.out.println("第六部分搜索："+(System.currentTimeMillis()-current));
 
         current = System.currentTimeMillis();
 
-        List<Pmc5Drug> pmc5Drug2sList = pmc5DrugDao.findBySm2NameLike(value);
+        List<Pmc5Drug> pmc5Drug2sList = pmc5DrugDao.findByDrug2NameLike(value);
         System.out.println("第七部分搜索："+(System.currentTimeMillis()-current));
 
         current = System.currentTimeMillis();
 
-        List<PmidDrug> pmidDrugAList = pmidDrugDao.findByDrugAnameLike(value);
+        List<PmidDrug> pmidDrugAList = pmidDrugDao.findByDrug1nameLike(value);
         System.out.println("第八部分搜索："+(System.currentTimeMillis()-current));
 
         current = System.currentTimeMillis();
 
-        List<PmidDrug> pmidDrugBList = pmidDrugDao.findByDrugBnameLike(value);
+        List<PmidDrug> pmidDrugBList = pmidDrugDao.findByDrug2nameLike(value);
         System.out.println("第九部分搜索："+(System.currentTimeMillis()-current));
 
         System.out.println("总耗时："+(System.currentTimeMillis()-origin)+" ms");

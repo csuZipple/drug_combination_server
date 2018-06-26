@@ -115,6 +115,7 @@ function loadDrugPage(page, size) {
             $(".zl_loader").css("display","flex");
         },
         success: function (data) {
+            console.log(data);
             $(".zl_loader").css("display","none");
             console.log("总页数:",data.totalPages-1);
             $(".total_page").text(data.totalPages-1);
@@ -138,7 +139,7 @@ function loadDrugPage(page, size) {
 }
 
 function createRow(element) {
-    let row = "<tr><td>"+element.id+"</td><td>"+element.fid+"</td><td><a href="+"./individual_drug_detail.html?id="+element.id+"&drug1Name="+element.drug1Name+">"+element.drug1Name+"</a></td><td><a href="+"./individual_drug_detail.html?id="+element.id+"&drug1Name="+element.drug2Name+">"+element.drug2Name+"</a></td><td>"+element.conc1+"</td><td>"+element.conc2+"</td><td>"+element.growth+"</td><td>"+element.cellline+"</td><td>"+element.source+"</td></tr>";
+    let row = "<tr><td><a href="+"./individual_drug_detail.html?id="+element.id+"&drug1Name="+element.drug1Name+">"+element.drug1Name+"</a></td><td><a href="+"./individual_drug_detail.html?id="+element.id+"&drug1Name="+element.drug2Name+">"+element.drug2Name+"</a></td><td>"+element.conc1+"</td><td>"+element.conc2+"</td><td>"+element.growth+"</td><td>"+element.cellline+"</td><td><a href="+"./drug_origin_data.html?fid="+element.fid+"&source="+element.source+">"+element.source+"</a></td></tr>";
     $(".zl_table").append($(row));
 }
 

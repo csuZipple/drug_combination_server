@@ -268,6 +268,16 @@ a.active:hover::after{
     border-radius: 5px;
 }
 
+.zl_go{
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+.zl_go:hover{
+    background: #ff6500;
+    color: #ffffff;
+}
+
 .zl_submit_btn:hover{
     background-color: #272ae3;
 }
@@ -425,17 +435,18 @@ figure img{
 }
 
 .zl_table {
+    /*display: block;*/
     margin: 0 auto 18px;
     border: none;
     font-family: "Microsoft YaHei UI", serif;
 }
 
 .zl_table a{
-    color: inherit;
+    color: rgb(0,90,213);
 }
 
 .zl_table caption{
-    padding-top: 20px;
+    padding: 20px 0;
     font-size: 24px;
 }
 
@@ -446,6 +457,7 @@ figure img{
 }
 .zl_table tr{
     transition:background-color 0.35s;
+    max-width: 100%;
 }
 .zl_table tr:nth-child(odd) {
     background-color: #eeeeee;
@@ -468,6 +480,40 @@ figure img{
 }
 .zl_table tr:not(:first-child):hover td,.zl_table tr:not(:first-child):hover th{
     border: 1px solid #dadada;
+}
+.zl_vertical_table{
+    min-width: 50%;
+}
+.zl_vertical_table ,.zl_vertical_table td  {
+    border: 1px solid #e8e8e8;
+    border-collapse: collapse;
+    padding: 2px;
+    text-align: center;
+}
+.zl_vertical_table td{
+    font-size: 14px;
+}
+.zl_vertical_table {
+    /*display: block;*/
+    margin: 0 auto 18px;
+    border: none;
+    font-family: "Microsoft YaHei UI", serif;
+}
+
+.zl_vertical_table a{
+    color: rgb(0,90,213);
+}
+
+.zl_vertical_table caption{
+    padding: 20px 0;
+    font-size: 24px;
+}
+
+.zl_vertical_table th{
+    border: 1px solid #ffffff;
+    border-collapse: collapse;
+    padding: 4px;
+    background: #eeeeee;
 }
 
 .zl_drug_target_page main,.zl_drug_combination_page main{

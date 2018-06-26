@@ -44,34 +44,38 @@
 
             </div>
         </div>
-
-        <table class="zl_table">
-            <caption>Combination Drug Information</caption>
-            <tr>
-                <td><span>Filter:</span>&nbsp;</td>
-                <td colspan="2">
-                    <label>
-                        Entries:
-                        <select class="entries">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                            <option value="200">200</option>
-                        </select>
-                    </label>
-                </td>
-            </tr>
-            <tr><th>id</th><th>fid</th><th>Drug1Name</th><th>Drug2Name</th><th>Conc1</th><th>Conc2</th><th>Growth</th><th>cellline</th><th>source</th></tr>
-        </table>
-        <!-- about paging block -->
-        <div class="zl_paging_black">
-            <span class="pre_page disabled">&lt; </span>
-            <span class="current">0</span>
-            <a href="#!" class="next_page">&gt; </a>
-            <input type="number" class="jump_page" title="jump to page..">
-            <span style="margin-left: 10px;">Total page: <span class="total_page"></span></span>
+        <div>
+            <table class="zl_table" style="width: 80%;">
+                <caption>Combination Drug Information</caption>
+            <!--    <tr>
+                    <td><span>Filter:</span>&nbsp;</td>
+                    <td colspan="2">
+                        <label>
+                            Entries:
+                            <select class="entries">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                            </select>
+                        </label>
+                    </td>
+                </tr>-->
+                <tr><th>Drug1Name</th><th>Drug2Name</th><th>Conc1</th><th>Conc2</th><th>Growth</th><th>cellline</th><th>source</th></tr>
+            </table>
+            <!-- about paging block -->
+            <div class="zl_paging_black">
+                <span class="pre_page disabled">&lt; </span>
+                <span class="current">0</span>
+                <a href="#!" class="next_page">&gt; </a>
+                <input type="number" class="jump_page" title="jump to page..">
+                <button class="zl_go">GO</button>
+                <span style="margin-left: 10px;">Total page: <span class="total_page"></span></span>
+            </div>
         </div>
+
+
     </main>
 </section>
 
@@ -269,8 +273,6 @@
         $.get(rootUrl+"/integrate/drug1Name/"+drug1Name).done(function (data) {
             //update option.
             normalizeJson(data);
-            myChart.hideLoading();
-            myChart.setOption(option);
         });
 
         /* normalize json data */
@@ -280,21 +282,28 @@
             data.cellline.map(function (ele, index) {
                 xAxisData.push(ele);
             });
-
-            data.drug2NameList.map(function (ele,index) {
-                drug2Name.push(ele);
-                let json = resolveJson(data.drug2Map[ele]);
-                seriesData.push(
-                    {
-                        name:ele,
-                        symbolSize: 8,
-                        data:json,
-                        type: 'scatter'
-                    }
-                )
-            })
+            if (data.drug2NameList.length===0){
+                alert("Current drug has not combination drugs.");
+                $(".zl_scatter_graph").hide();
+            }else{
+                data.drug2NameList.map(function (ele,index) {
+                    drug2Name.push(ele);
+                    let json = resolveJson(data.drug2Map[ele]);
+                    seriesData.push(
+                        {
+                            name:ele,
+                            symbolSize: 8,
+                            data:json,
+                            type: 'scatter'
+                        }
+                    )
+                });
+                myChart.hideLoading();
+                myChart.setOption(option);
+            }
+            paging(data.drugList);
         }
-        
+
         function resolveJson(data) {
             let json = [];
             data.map(function (ele, index) {
@@ -302,7 +311,107 @@
             });
             return json;
         }
+    }
 
+    function paging(drugList) {
+        /*  about the page controls  */
+        let currentSize = 10;//default
+        let maxPage = drugList.length/10;
+        $(".total_page").text(parseInt(maxPage));
+        drugList.map(function (ele, index) {
+            if (index<10) createRow(ele);
+        });
+
+        let page =$(".jump_page");
+        page.bind("input",function () {
+            if(page.val()<0){
+                page.val(0);
+            }
+            if (maxPage!==""){
+                console.log(page.val());
+                console.log(page.val()>maxPage);
+                if (page.val()>maxPage){
+                    page.val(maxPage);
+                }
+            }
+        });
+
+        $(".pre_page").click(function () {
+            if($(".pre_page").hasClass("disable")){
+                console.log("can't jump")
+            }else{
+                let current = $(".current").text();
+                gotoPage(parseInt(current)-1,currentSize);
+            }
+        });
+        $(".next_page").click(function () {
+            if($(".next_page").hasClass("disable")){
+                console.log("can't jump")
+            }else{
+                let current = $(".current").text();
+                gotoPage(parseInt(current)+1,currentSize);
+            }
+        });
+
+        /*    page.blur(function () {
+                gotoPage(page.val());
+            });*/
+
+        page.keydown(function (event) {
+            if (event.keyCode===13){
+                gotoPage(parseInt(page.val()),currentSize);
+            }
+        });
+
+        $(".zl_go").click(function () {
+            if (isNaN(parseInt(page.val()))){
+                return;
+            }
+            gotoPage(parseInt(page.val()),currentSize);
+        });
+
+        $(".entries").change(function () {
+            if ($(this).children('option:selected').val()!==currentSize){
+                currentSize = $(this).children('option:selected').val();
+                gotoPage(0);
+            }
+        });
+        
+        function gotoPage(num) {
+            console.log("goto num:"+num);
+            $(".current").text(num);
+
+            if(num==1){
+                $(".pre_page").addClass("disabled");
+            }else{
+                $(".pre_page").removeClass("disabled");
+            }
+
+            let maxPage = $(".total_page").text();
+
+            if(num==maxPage){
+                $(".next_page").addClass("disabled");
+            }else{
+                $(".next_page").removeClass("disabled");
+            }
+
+            $(".zl_table tr").each(function (index) {
+                if (index!==0){
+                    // console.log(index);
+                    $(this).empty();
+                }
+            });
+            if (drugList.length!==0){
+                for (let i = parseInt(num)*10;i<drugList.length&&i<(parseInt(num)*10+10);i++){
+                    console.log(i);
+                    createRow(drugList[i]);
+                }
+                //update page controls
+
+            }else{
+                alert("当前页数据为空...")
+            }
+        }
 
     }
 

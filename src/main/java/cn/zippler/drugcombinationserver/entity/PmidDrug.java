@@ -17,11 +17,11 @@ public class PmidDrug {
     @Column(name = "cell_line")
     private String cellline;
     @Column(name = "drugAname")
-    private String drugAname;
+    private String drug1name;
     @Column(name = "Conc1")
     private String conc1;
     @Column(name = "drugBname")
-    private String drugBname;
+    private String drug2name;
     @Column(name = "Conc2")
     private String conc2;
     @Column(name = "combination_name")
@@ -69,12 +69,20 @@ public class PmidDrug {
         this.batchId = batchId;
     }
 
-    public String getDrugAname() {
-        return drugAname;
+    public String getDrug1name() {
+        return drug1name;
     }
 
-    public void setDrugAname(String drugAname) {
-        this.drugAname = drugAname;
+    public void setDrug1name(String drug1name) {
+        this.drug1name = drug1name;
+    }
+
+    public String getDrug2name() {
+        return drug2name;
+    }
+
+    public void setDrug2name(String drug2name) {
+        this.drug2name = drug2name;
     }
 
     public String getConc1() {
@@ -85,13 +93,6 @@ public class PmidDrug {
         this.conc1 = conc1;
     }
 
-    public String getDrugBname() {
-        return drugBname;
-    }
-
-    public void setDrugBname(String drugBname) {
-        this.drugBname = drugBname;
-    }
 
     public String getConc2() {
         return conc2;

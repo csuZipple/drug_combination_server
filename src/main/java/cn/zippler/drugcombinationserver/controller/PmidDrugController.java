@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/pmid5")
+@RequestMapping("/pmid2")
 public class PmidDrugController {
     private PmidDrugDao pmidDrugDao;
 

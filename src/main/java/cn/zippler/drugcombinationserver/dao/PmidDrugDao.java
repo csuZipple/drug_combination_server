@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PmidDrugDao extends JpaRepository<PmidDrug, Long> {
-    List<PmidDrug> findByDrugAnameLike(String drugAName);
-    List<PmidDrug> findByDrugBnameLike(String drugBName);
+    List<PmidDrug> findByDrug1nameLike(String drugAName);
+    List<PmidDrug> findByDrug2nameLike(String drugBName);
 }

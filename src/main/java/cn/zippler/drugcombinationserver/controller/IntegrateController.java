@@ -33,7 +33,7 @@ public class IntegrateController {
     }
     @RequestMapping("/page")
     public Page<IntegratedDrug> getPage(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "10") Integer size){
-        Sort sort = new Sort(Sort.Direction.ASC, "id");
+        Sort sort = new Sort(Sort.Direction.ASC,"id");
         System.out.println("received the request of paging..current page is:"+page+" and size is"+size);
         Pageable pageable = new PageRequest(page, size, sort);
         return integratedDrugDao.findAll(pageable);
