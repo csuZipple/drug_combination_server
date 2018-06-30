@@ -50,7 +50,7 @@ header{
     text-transform: none;
 }
 .zl_tabs a{
-    width: 100px;
+    width: 140px;
     text-transform: uppercase;
     color: #777777;
 
@@ -612,42 +612,21 @@ figure img{
 .zl_drop_down main{
     width: 100%;
 }
-.zl_download_page{
-    display: flex;
-    flex-direction: column;
-}
-
-.zl_download_header{
-    flex: 0 0 auto;
-    width: 100%;
-    height: 140px;
-    text-align: center;
-    background: #F4F7FC;
-
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-}
-.zl_download_header h1{
-    padding: 12px;
-    font-size: 34px;
-}
-.zl_download_header p{
-    font-size: 18px;
-    color: #34302d;
-}
 
 .zl_download_page main{
-    flex: 1 0 auto;
-    background: #FFFFFF;
-    width: 100%;
-    box-sizing:border-box;
-    padding:30px 140px;
-
-    text-align: center;
+    width: 60%;
+    padding: 10px;
+    margin: 20px auto;
+    font-family: Montserrat,sans-serif;
 }
-
+.zl_download_page h2{
+    font-size: 28px;
+    font-weight: 400;
+    padding: 10px 10px 10px 0;
+}
+.zl_download_page p{
+    padding: 0 10px 10px 10px;
+}
 .zl_download_title{
     font-size: 25px;
     border-bottom: 0;
@@ -659,12 +638,7 @@ figure img{
     color: #d9334C;
     font: italic 14px Georgia, serif;
 }
-.zl_download_page main >div{
-    width: 64%;
-    min-height: 100px;
-    margin: 20px auto;
-    text-align: left;
-}
+
 .zl_download_table_title{
     padding: 12px 0;
 }
@@ -675,6 +649,14 @@ figure img{
     padding: 12px;
     border-collapse: collapse;
 }
+
+.zl_table_tips{
+    text-align: center;
+    color: #666666;
+    font-size: 14px;
+    padding: 8px;
+}
+
 .zl_download_table td,.zl_download_table th{
     border: 1px solid #e8e8e8;
     border-collapse: collapse;
