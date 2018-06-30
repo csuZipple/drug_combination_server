@@ -145,6 +145,10 @@ function createRow(element) {
 
 function gotoPage(num,currentSize) {
     console.log("jump to :",num);
+    if (parseInt(num)<0){
+        console.log("非法跳转");
+        return;
+    }
     $(".current").text(num);
 
     if(num==1){
