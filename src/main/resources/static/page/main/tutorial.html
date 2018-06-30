@@ -39,28 +39,131 @@
         <main>
             <p class="zl_block_title">Overview</p>
             <div class="zl_content_text">
-                <p>DCDB was created with the support of Zhejiang Provincial Natural Science Foundation, China (Grant No. R207609) and China Postdoctoral Science Foundation grant No. 2012M521164. Its maintenance and operational cost is covered by the Maintenance Grant to Provincial Key Laboratory of Biochemistry, Zhejiang, China.</p>
-            </div>
-
-            <p class="zl_block_title">Features</p>
-            <div class="zl_content_text">
-                <p>DCDB was created with the support of Zhejiang Provincial Natural Science Foundation, China (Grant No. R207609) and China Postdoctoral Science Foundation grant No. 2012M521164. Its maintenance and operational cost is covered by the Maintenance Grant to Provincial Key Laboratory of Biochemistry, Zhejiang, China.</p>
-            </div>
-
-            <p class="zl_block_title">Quick start</p>
-            <div class="zl_content_text">
-                <p>The index page is mainly show the overview of our SDADB. We provide a query input in this page to search the domain name, and you can also search in the right of the top menu. Both of them has the same function, and if you are interested in some domain but not sure the accurate?name of the domain, you can also search the protein name or the classification of the domain. Beside the search function, we also show the abstract and the main function of our SDADB below the query input.</p>
+                <p>
+                    DrugCombDB was created with the support of dcdb、nci and pmc database.
+                </p>
+                <p>
+                    As you see on the homepage (the picture below), it shows the overview of our database <b>Drug Combination Database</b> (DrugCombDB).
+                    We provide a query input in every page to search the drug name in the right of the top menu. and if you are interested in some drugs but not sure the accurate name of the domain, you can also search the protein name of the domain ,Our system will give the relevant drug name as a reminder.
+                    The aside picture is a link that can show the application of our database.
+                </p>
                 <figure>
                     <img src="../../resource/images/home_page.jpg" alt="content images">
-                    <figcaption>图一、界面介绍</figcaption>
-                </figure>
-
-                <p>The index page is mainly show the overview of our SDADB. We provide a query input in this page to search the domain name, and you can also search in the right of the top menu. Both of them has the same function, and if you are interested in some domain but not sure the accurate?name of the domain, you can also search the protein name or the classification of the domain. Beside the search function, we also show the abstract and the main function of our SDADB below the query input.</p>
-                <figure>
-                    <img src="../../resource/images/home_page.jpg" alt="content images">
-                    <figcaption>图一、界面介绍</figcaption>
+                    <figcaption>图一、main.html</figcaption>
                 </figure>
             </div>
+
+            <p class="zl_block_title">Browser Page</p>
+            <div class="zl_content_text">
+                <p>
+                    After clicking the button, three browsing pictures will appear. The first one is to show the combination drug, the second is to show the target protein, and the last one shows a single drug.
+                    When you clicked on the target protein picture, it will scroll to the bottom of the page to display all drug information. At this time, you only need to select the corresponding drug to enter the target information page.
+                </p>
+                <figure>
+                    <img src="../../resource/images/browser_page_1.jpg" alt="content images">
+                    <figcaption>图二、browser.html</figcaption>
+                </figure>
+                <figure>
+                    <img src="../../resource/images/browser_page_2.jpg" alt="content images">
+                    <figcaption>图三、browser.html</figcaption>
+                </figure>
+            </div>
+
+            <p class="zl_block_title">Combination Drug Data</p>
+            <div class="zl_content_text">
+                <p style="padding: 8px 0;">The Integrate Data Format:</p>
+                <table class="zl_download_table">
+                    <tr><th>id</th><th>fid</th><th>source</th><th>drug1name</th><th>drug2name</th><th>conc1</th><th>conc2</th><th>growth</th><th>cellline</th></tr>
+                    <tr><td>1</td><td>1</td><td>Vemurafenib</td><td>Vemurafenib</td><td>0.000</td><td>0.000</td><td>0.630635764944276</td><td>A-375</td><td>PMC5248573</td></tr>
+                </table>
+            </div>
+
+            <div style="padding: 15px; box-sizing: border-box">
+                <p style="padding: 0 0 8px 0;">Column descriptions:</p>
+                <ul class="zl_ul_format">
+                    <li>id: key</li>
+                    <li>fid: foreign key</li>
+                    <li>source: the origin database</li>
+                    <li>drug1name: drug A name</li>
+                    <li>drug2name: drug B name</li>
+                    <li>conc1: drug A concentration</li>
+                    <li>conc2: drug B concentration</li>
+                    <li>growth: Combined drug sensitivity score for this cancer cell line, between 0-1</li>
+                    <li>cellline: The name of the cancer cell line</li>
+                </ul>
+            </div>
+
+            <div class="zl_content_text">
+                <figure>
+                    <img src="../../resource/images/combination_page_1.jpg" alt="content images">
+                    <figcaption>图四、drug_detail.html</figcaption>
+                </figure>
+
+                <p>
+                    If you click on a drug name in the above table, you will get all the drug information made from this drug in the background.
+                    The display form consists of a scatter graph and a table. You can switch the display form by clicking the button in the upper right.
+                    You can also zoom in on the scatter graph to get more information by scrolling the mouse wheel. Click on each point to jump to this drug's detail page.
+                </p>
+                <figure>
+                    <img src="../../resource/images/combination_page_2.jpg" alt="content images">
+                    <figcaption>图五、individual_drug_detail.html</figcaption>
+                </figure>
+
+                <figure>
+                    <img src="../../resource/images/origin_page.jpg" alt="content images">
+                    <figcaption>图六、origin_page.html.html</figcaption>
+                </figure>
+            </div>
+
+            <p class="zl_block_title">About Target</p>
+            <div class="zl_content_text">
+                <p>
+                   After select the drug of the drug list in the browser page ,You can get a page just like the picture below.It contains the target protein information.
+                </p>
+                <figure>
+                    <img src="../../resource/images/target.png" alt="content images">
+                    <figcaption>图六、target_detail.html.html</figcaption>
+                </figure>
+            </div>
+
+            <p class="zl_block_title">About API</p>
+            <div class="zl_content_text">
+                <p>
+                    Our website provides basic REST API services :
+                </p>
+                <ul class="zl_ul_format">
+                    <li><a href="http://drugcombdb.denglab.org/integrate/list" target="_blank">http://drugcombdb.denglab.org/integrate/list</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/integrate/list/{id}" target="_blank">http://drugcombdb.denglab.org/integrate/list/{id}</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/integrate/page?page=0&size=10" target="_blank">http://drugcombdb.denglab.org/integrate/page?page=0&size=10</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/integrate/search?q=V" target="_blank">http://drugcombdb.denglab.org/integrate/search?q=V</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/integrate/drug1Name/Vemurafenib" target="_blank">http://drugcombdb.denglab.org/integrate/drug1Name/{name}</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/integrate/drug1Name/Vemurafenib" target="_blank">http://drugcombdb.denglab.org/integrate/drug1Name/{name}</a></li>
+
+                    <li><a href="http://drugcombdb.denglab.org/nci/list" target="_blank">http://drugcombdb.denglab.org/nci/list</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/nci/list/1" target="_blank">http://drugcombdb.denglab.org/nci/list/{id}</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/nci/page?page=0&size=10" target="_blank">http://drugcombdb.denglab.org/nci/page?page=0&size=10</a></li>
+
+                    <li><a href="http://drugcombdb.denglab.org/pmc3/list" target="_blank">http://drugcombdb.denglab.org/pmc3/list</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/pmc3/list/1" target="_blank">http://drugcombdb.denglab.org/pmc3/list/{id}</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/pmc3/page?page=0&size=10" target="_blank">http://drugcombdb.denglab.org/pmc3/page?page=0&size=10</a></li>
+
+                    <li><a href="http://drugcombdb.denglab.org/pmc5/list" target="_blank">http://drugcombdb.denglab.org/pmc5/list</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/pmc5/list/1" target="_blank">http://drugcombdb.denglab.org/pmc5/list/{id}</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/pmc5/page?page=0&size=10" target="_blank">http://drugcombdb.denglab.org/pmc5/page?page=0&size=10</a></li>
+
+                    <li><a href="http://drugcombdb.denglab.org/pmid2/list" target="_blank">http://drugcombdb.denglab.org/pmid2/list</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/pmid2/list/1" target="_blank">http://drugcombdb.denglab.org/pmid2/list/{id}</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/pmid2/page?page=0&size=10" target="_blank">http://drugcombdb.denglab.org/pmid2/page?page=0&size=10</a></li>
+
+                    <li><a href="http://drugcombdb.denglab.org/target/list" target="_blank">http://drugcombdb.denglab.org/target/list</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/target/page?page=0&size=10" target="_blank">http://drugcombdb.denglab.org/target/page?page=0&size=10</a></li>
+                    <li><a href="http://drugcombdb.denglab.org/target/drug/acetylcarnitine" target="_blank">http://drugcombdb.denglab.org/target/drug/{drugName}</a></li>
+
+                    <li><a href="#!" target="_blank">http://drugcombdb.denglab.org/query/search?q=V</a></li>
+                </ul>
+            </div>
+
+
         </main>
 
 

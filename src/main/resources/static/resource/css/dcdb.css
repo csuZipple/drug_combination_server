@@ -388,7 +388,7 @@ a.active:hover::after{
 
 figure img{
     width: 100%;
-
+    max-height: 420px;
     object-fit: contain;
 }
 
@@ -597,6 +597,18 @@ figure img{
     margin: 20px auto;
 }
 
+.zl_ul_format{
+    box-sizing: border-box;
+    width: 90%;
+    padding:10px 60px;
+    background: #f5f5f5;
+    border: 1px solid #e8e8e8;
+}
+
+.zl_ul_format li{
+    padding: 2px;
+}
+
 .zl_drop_down main{
     width: 100%;
 }
@@ -625,7 +637,7 @@ figure img{
     font-size: 18px;
     color: #34302d;
 }
-/*世纪楼主楼301 018 06*/
+
 .zl_download_page main{
     flex: 1 0 auto;
     background: #FFFFFF;
@@ -659,7 +671,7 @@ figure img{
 .zl_download_table{
     min-width: 880px;
     background: #f5f5f5;
-    border: 1px solid #e8e8e8;
+    border: 1px solid #666;
     padding: 12px;
     border-collapse: collapse;
 }
@@ -722,6 +734,7 @@ figure img{
     text-align: center;
     font-size: 12px;
     color: #666666;
+    padding: 10px 0 ;
 }
 
 .jump_page{
