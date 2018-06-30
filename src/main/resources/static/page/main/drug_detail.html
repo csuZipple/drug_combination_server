@@ -148,12 +148,14 @@
     });
 
     $(".pre_page").click(function () {
-        if($(".pre_page").hasClass("disable")){
-            console.log("can't jump")
-        }else{
+        $(".pre_page").click(function () {
             let current = $(".current").text();
-            gotoPage(parseInt(current)-1,currentSize);
-        }
+            if (parseInt(current)===0){
+                console.log("can't jump to this page")
+            }else{
+                gotoPage(parseInt(current)-1,currentSize);
+            }
+        });
     });
     $(".next_page").click(function () {
         if($(".next_page").hasClass("disable")){

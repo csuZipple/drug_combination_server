@@ -1,5 +1,4 @@
-let rootUrl = "http://localhost:8080";
-// let rootUrl = "http://drugcombdb.denglab.org/"
+let rootUrl = "http://"+window.location.host;
 $(".zl_drop_down").click(function (e) {
     e.stopPropagation();
     $(".zl_contact_dialog").show();
@@ -151,7 +150,7 @@ function gotoPage(num,currentSize) {
     }
     $(".current").text(num);
 
-    if(num==1){
+    if(num==0){
         $(".pre_page").addClass("disabled");
     }else{
         $(".pre_page").removeClass("disabled");

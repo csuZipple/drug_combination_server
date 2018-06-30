@@ -53,14 +53,19 @@ public class TargetController {
         List<Chemicals> chemicalsList = chemicalsDao.findByName(drugName);
         List<ProteinChemicalLink> proteinChemicalLinkList = null;
         Map<String,Object> result = new HashMap<>();
-        for (Chemicals chemicals:chemicalsList) {//2
-            String chemicalsId = chemicals.getChemical();
-            result.put("drug",drugName);
-            if (chemicalsId.contains("m")){
-                proteinChemicalLinkList = proteinChemicalLinkDao.findByChemical(chemicalsId);
-                result.put("data",proteinChemicalLinkList);
+        if (chemicalsList.size()==0){
+            System.out.println("no data found");
+        }else{
+            for (Chemicals chemicals:chemicalsList) {//2
+                String chemicalsId = chemicals.getChemical();
+                result.put("drug",drugName);
+                if (chemicalsId.contains("m")){
+                    proteinChemicalLinkList = proteinChemicalLinkDao.findByChemical(chemicalsId);
+                    result.put("data",proteinChemicalLinkList);
+                }
             }
         }
+
         return result;
     }
 }

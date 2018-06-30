@@ -50,4 +50,12 @@ public class Chemicals {
     public void setSmileString(String smileString) {
         this.smileString = smileString;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

@@ -73,7 +73,7 @@
     <main>
         <p>The Drug List for target</p>
         <div id="zl_target_container">
-            <table class="zl_table">
+            <table class="zl_table" style="max-width: 80%;">
                 <tr>
                     <td><span>Filter:</span>&nbsp;</td>
                     <td colspan="2">
@@ -197,10 +197,11 @@
     });
 
     $(".pre_page").click(function () {
-        if($(".pre_page").hasClass("disable")){
-            console.log("can't jump")
+        let current = $(".current").text();
+        console.log(parseInt(current));
+        if (parseInt(current)===0){
+            console.log("can't jump to this page")
         }else{
-            let current = $(".current").text();
             gotoPage(parseInt(current)-1,currentSize);
         }
     });
@@ -280,7 +281,7 @@
             console.log("非法跳转");
             return;
         }
-        if(num==1){
+        if(num==0){
             $(".pre_page").addClass("disabled");
         }else{
             $(".pre_page").removeClass("disabled");

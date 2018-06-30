@@ -50,7 +50,7 @@ header{
     text-transform: none;
 }
 .zl_tabs a{
-    width: 140px;
+    width: 100px;
     text-transform: uppercase;
     color: #777777;
 
@@ -439,7 +439,6 @@ figure img{
     background: #FFFFFF;
     margin: 20px auto;
     box-shadow: 0 30px 30px -10px rgba(33, 71, 109, 0.3), 0 0 20px -2px rgba(15, 81, 148, 0.2);
-
 }
 .zl_table ,.zl_table td  {
     border: 1px solid #e8e8e8;
@@ -447,7 +446,10 @@ figure img{
     padding: 10px;
     text-align: center;
 }
-
+.zl_table td{
+    max-width: 330px;
+    overflow-x: auto;
+}
 .zl_table {
     /*display: block;*/
     margin: 0 auto 18px;
@@ -506,6 +508,7 @@ figure img{
 }
 .zl_vertical_table td{
     font-size: 14px;
+    text-align: left;
 }
 .zl_vertical_table {
     /*display: block;*/
@@ -536,7 +539,6 @@ figure img{
     background: #ffffff;
     margin: -20px auto;
     box-shadow: 0 30px 30px -10px rgba(33, 71, 109, 0.3), 0 0 20px -2px rgba(15, 81, 148, 0.2);
-
 }
 .zl_drug_target_page main p,.zl_drug_combination_page main p{
     text-align: center;

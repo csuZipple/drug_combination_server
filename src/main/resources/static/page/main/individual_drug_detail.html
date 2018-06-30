@@ -335,10 +335,10 @@
         });
 
         $(".pre_page").click(function () {
-            if($(".pre_page").hasClass("disable")){
-                console.log("can't jump")
+            let current = $(".current").text();
+            if (parseInt(current)===0){
+                console.log("can't jump to this page")
             }else{
-                let current = $(".current").text();
                 gotoPage(parseInt(current)-1,currentSize);
             }
         });

@@ -104,6 +104,10 @@
         $.get(rootUrl+'/target/drug/'+drug).done(function (data) {
             //update option.
             myChart.hideLoading();
+            if (data.data===undefined){
+                alert("no data found in target!");
+                return;
+            }
             json = normalizeJson(data);
             if (json.children.length>=4){
                 echarts.util.each(json.children, function (datum, index) {
@@ -163,6 +167,7 @@
 
 
     function normalizeJson(data) {
+        console.log(data);
         let json ={};
         json.name=data.drug;
         json.children=[];
