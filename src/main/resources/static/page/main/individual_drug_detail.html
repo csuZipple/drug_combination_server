@@ -36,7 +36,13 @@
 <section class="zl_page zl_individual_drug_page">
     <main>
         <!-- get more information about the individual drug -->
-        <button class="zl_btn">Back</button>
+        <div class="zl_individual_nav">
+            <button class="zl_btn zl_back">Back</button>
+            <div class="tabs">
+                <button class="zl_btn zl_btn_tab zl_btn_disable">Show Table</button>
+                <button class="zl_btn zl_btn_tab">Show Scatter</button>
+            </div>
+        </div>
         <div class="zl_scatter_graph">
             <p>The Drug <span class="zl_drug1Name" style="color: #ff6500;">Default drug name</span> 's Combination drugs Scatter Graph.</p>
 
@@ -44,36 +50,21 @@
 
             </div>
         </div>
-        <div>
-            <table class="zl_table" style="width: 80%;">
-                <caption>Combination Drug Information</caption>
-            <!--    <tr>
-                    <td><span>Filter:</span>&nbsp;</td>
-                    <td colspan="2">
-                        <label>
-                            Entries:
-                            <select class="entries">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="200">200</option>
-                            </select>
-                        </label>
-                    </td>
-                </tr>-->
-                <tr><th>Drug1Name</th><th>Drug2Name</th><th>Conc1</th><th>Conc2</th><th>Growth</th><th>cellline</th><th>source</th></tr>
-            </table>
-            <!-- about paging block -->
-            <div class="zl_paging_black">
-                <span class="pre_page disabled">&lt; </span>
-                <span class="current">0</span>
-                <a href="#!" class="next_page">&gt; </a>
-                <input type="number" class="jump_page" title="jump to page..">
-                <button class="zl_go">GO</button>
-                <span style="margin-left: 10px;">Total page: <span class="total_page"></span></span>
-            </div>
+
+        <table class="zl_table" style="width: 80%;display: none">
+            <caption>Combination Drug Information</caption>
+            <tr><th>Drug1Name</th><th>Drug2Name</th><th>Conc1</th><th>Conc2</th><th>Growth</th><th>cellline</th><th>source</th></tr>
+        </table>
+        <!-- about paging block -->
+        <div class="zl_paging_black" style="display: none">
+            <span class="pre_page disabled">&lt; </span>
+            <span class="current">0</span>
+            <a href="#!" class="next_page">&gt; </a>
+            <input type="number" class="jump_page" title="jump to page..">
+            <button class="zl_go">GO</button>
+            <span style="margin-left: 10px;">Total page: <span class="total_page"></span></span>
         </div>
+
 
 
     </main>
@@ -132,7 +123,7 @@
 <script>
     let drug1Name = getParamFromUrl("drug1Name");
     console.log(drug1Name);
-    $(".zl_btn").click(function () {
+    $(".zl_back").click(function () {
         window.history.back();
     });
     if (drug1Name===""||drug1Name===null){
@@ -269,6 +260,11 @@
             series:seriesData
         };
         //get json data.
+
+        myChart.on("click", function (param) {
+            let data = param.data[2];
+            window.location.href="./drug_origin_data.html?fid="+data.fid+"&source="+data.source;
+        });
         myChart.setOption(option);
         $.get(rootUrl+"/integrate/drug1Name/"+drug1Name).done(function (data) {
             //update option.
@@ -311,6 +307,8 @@
             });
             return json;
         }
+
+
     }
 
     function paging(drugList) {
@@ -376,7 +374,7 @@
                 gotoPage(0);
             }
         });
-        
+
         function gotoPage(num) {
             console.log("goto num:"+num);
             $(".current").text(num);
@@ -415,5 +413,19 @@
 
     }
 
+    $(".zl_btn_tab").click(function () {
+        let index = $(this).index();
+        console.log(index);
+        $(this).removeClass("zl_btn_disable").siblings().addClass("zl_btn_disable");
+        if (index===0){
+            $(".zl_scatter_graph").hide();
+            $(".zl_table").show();
+            $(".zl_paging_black").show();
+        }else{
+            $(".zl_scatter_graph").show();
+            $(".zl_table").hide();
+            $(".zl_paging_black").hide();
+        }
+    })
 </script>
 </html>

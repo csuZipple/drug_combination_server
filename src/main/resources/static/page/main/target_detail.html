@@ -33,8 +33,11 @@
             </div>
         </div>
     </header>
-    <section class="zl_page">
+    <section class="zl_page zl_individual_drug_page">
        <!--the target detail-->
+        <main>
+            <div id="zl_target_container" style="width: 80%;height: 550px;"></div>
+        </main>
     </section>
 
     <footer>
@@ -83,5 +86,79 @@
 
 </body>
 <script src="../../resource/js/jquery.js"></script>
+<script type="text/javascript" src="../../resource/js/echarts.min.js"></script>
 <script type="text/javascript" src="../../resource/js/base.js"></script>
+<script>
+    let dom = document.getElementById("zl_target_container");
+    let myChart = echarts.init(dom);
+    myChart.showLoading();
+    let json={};
+    $.get(rootUrl+'/target/drug/Vemurafenib').done(function (data) {
+        //update option.
+        myChart.hideLoading();
+        json = normalizeJson(data);
+        console.log(json);
+        myChart.setOption({
+            title:{
+                text:"The Vemurafenib's Target "
+            },
+            tooltip: {
+                trigger: 'item',
+                triggerOn: 'mousemove'
+            },
+            series:[
+                {
+                    type: 'tree',
+
+                    data: [json],
+
+                    left: '2%',
+                    right: '2%',
+                    top: '8%',
+                    bottom: '20%',
+
+                    symbol: 'emptyCircle',
+
+                    orient: 'vertical',
+
+                    expandAndCollapse: true,
+
+                    label: {
+                        normal: {
+                            position: 'left',
+                            verticalAlign: 'middle',
+                            align: 'right',
+                        }
+                    },
+
+                    leaves: {
+                        label: {
+                            normal: {
+                                position: 'right',
+                                verticalAlign: 'middle',
+                                align: 'left'
+                            }
+                        }
+                    },
+
+                    animationDurationUpdate: 750
+                }
+            ]
+        })
+    });
+
+    function normalizeJson(data) {
+        let json ={};
+        json.name=data.drug;
+        json.children=[];
+        $.each(data.data,function (index, ele) {
+            let obj ={"name":ele.protein,"value":ele.combinedScore};
+            json.children.push(obj);
+        });
+        return json;
+    }
+
+
+
+</script>
 </html>

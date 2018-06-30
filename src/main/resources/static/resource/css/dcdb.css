@@ -305,6 +305,20 @@ a.active:hover::after{
     box-shadow: none;
     background-color: #ef4d57;
 }
+.zl_btn_tab{
+    background-color: #e14d57;
+    text-transform: none;
+    transition: box-shadow .2s ease;
+}
+.zl_btn_disable{
+    background-color: #cccccc;
+}
+/*about tab */
+.tabs{
+    display: inline-block;
+    float: right;
+}
+
 
 .zl_main_page aside{
     width: 32%;

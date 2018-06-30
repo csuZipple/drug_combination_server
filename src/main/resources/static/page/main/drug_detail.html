@@ -37,6 +37,7 @@
        <!--the drug detail-->
         <!--显示不同的药物组合-->
             <main>
+                <button class="zl_btn">Back</button>
                 <table class="zl_table">
                     <caption>Combination Drug Information</caption>
                     <tr>
@@ -127,7 +128,9 @@
 <script src="../../resource/js/jquery.js"></script>
 <script type="text/javascript" src="../../resource/js/base.js"></script>
 <script>
-
+    $(".zl_btn").click(function () {
+        window.history.back();
+    });
     /*  about the page controls  */
     let currentSize = 10;//default
     loadDrugPage(0,currentSize);/*The default is 0 ,size is 10*/

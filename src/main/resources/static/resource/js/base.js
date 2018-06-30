@@ -1,5 +1,5 @@
 let rootUrl = "http://localhost:8080";
-// let rootUrl = "http://drugcomdb.denglab.org";
+// let rootUrl = "http://drugcombdb.denglab.org/"
 $(".zl_drop_down").click(function (e) {
     e.stopPropagation();
     $(".zl_contact_dialog").show();

@@ -39,7 +39,7 @@
             <main>
                 <button class="zl_btn">Back</button>
                 <table class="zl_vertical_table">
-                    <caption>Combination Drug Information</caption>
+                    <caption>The Origin Drug Data</caption>
                 </table>
             </main>
     </section>
@@ -107,31 +107,6 @@
         window.history.back();
     });
     //load from backstage.
-        let data={
-            data:{"id" : 2,
-                "source" : "PMC3926026",
-                "drug1Id" : "NCGC00015609-06",
-                "drug1Name" : "Lonidamine",
-                "drug1Target" : "Phosphotransferase (HK) (Trypanosoma brucei) Inhibitor",
-                "drug2Id" : "NCGC00187912",
-                "drug2Name" : "ibrutinib",
-                "conc1" : "2.5,0.625,0.15625,0.0390626,0.0097656,0.0",
-                "conc2" : "0.05,0.0125,0.003125,7.812000000000001E-4,1.954E-4,0.0",
-                "mqcClass" : "good",
-                "mqcConfidence" : "0.944847",
-                "medianExcess" : "48.85378",
-                "numExcess" : "4",
-                "excessHSA" : "76.97292",
-                "excessCRX" : "113111.341",
-                "ls3x3" : "0",
-                "beta" : "1.00869",
-                "gamma" : "1.00869",
-                "growth" : "0.66603",
-                "dbSumPos" : "0.91793",
-                "dbSumNeg" : "-0.1482"
-            },
-            key:["id","source"]
-        };
         init();
         function init() {
             let url = createRequest();
@@ -142,7 +117,6 @@
             $.ajax({
                 type: 'POST',
                 url: url,
-                data: data,
                 beforeSend:function(){
                     $(".zl_loader").css("display","flex");
                 },
