@@ -6,6 +6,7 @@
     <meta name="author" content="zipple">
     <meta name="keywords" content="drug,combination,database">
     <title>DrugCombDB - the drug combination database</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <link href="../../resource/css/reset.css" type="text/css" rel="stylesheet"/>
     <link href="../../resource/css/style.css" type="text/css" rel="stylesheet"/>
     <link href="../../resource/css/dcdb.css" type="text/css" rel="stylesheet"/>
@@ -13,7 +14,7 @@
 </head>
 <body>
     <header>
-        <a href="main.html" class="zl_logo">DrugCombDB</a>
+        <a href="main.html" class="zl_logo"></a>
         <div class="zl_tabs">
             <a class="active" href="main.html">home</a>
             <a href="browser.html">browser</a>
@@ -36,14 +37,39 @@
     <section class="zl_page zl_main_page">
         <main>
             <!-- about the information -->
-            <h1>Drug Combination Database.</h1>
+            <h1>Drug Combination Database</h1>
             <p>
-                The Drug Combination Database (DrugCombDB) is devoted to the research and development of multi-component drugs. By collecting and organizing known examples of drug combinations, it aims to facilitate in-depth analyses of these cases, to summarize patterns of coordinated drug actions, and to provide a basis for theoretical modeling and simulation of such beneficial drug combinations.
+                Drug combinations have demonstrated high efficacy and low adverse side effects compared to single drug administrations in cancer therapies, and thus draw intensive attentions from researchers and pharmaceutical enterprises. Thanks to the fast development of high-throughput screening (HTS) methods, the amount of available drug combination data points has tremendously increased [1].
             </p>
             <div class="zl_detail">
-                <p>Accumulating scientific and clinical evidences have suggested the use of drug combinations as a safe and effective approach, to treat complicated and refractory diseases. The Drug Combination Database (DrugCombDB) is devoted to the research and development of multi-component drugs. By collecting and organizing known examples of drug combinations, it aims to facilitate in-depth analyses of these cases, to summarize patterns of coordinated drug actions, and to provide a basis for theoretical modeling and simulation of such beneficial drug combinations.</p>
-                <p>The current version of DCDB collected 1363 drug combinations (330 approved and 1033 investigational, including 237 unsuccessful usages), involving 904 individual drugs, 805 targets. DrugCombDB provides, for each drug combination, its combined activity/indications, possible mechanism, drug interactions between its components, and current development status; for each individual drug, its chemical, pharmacological and pharmaceutical properties, together with its known molecular targets; and for each drug target, its sequence, function annotation and affiliated pathway. Extensive cross-links and external links are available. </p>
-                <p>DrugCombDB was created with the support of Hunan Provincial Natural Science Foundation, China (Grant No. R207609) and China Postdoctoral Science Foundation grant No. 2012M521164. Its maintenance and operational cost is covered by the Maintenance Grant to Provincial Key Laboratory of Biochemistry, Hunan, China.</p>
+                <p>Drug Combination Database is a comprehensive database of drug combination to overcome cancer treatment resistance.</p>
+                <p>
+                    Drug combinations have demonstrated high efficacy and low adverse side effects compared to single drug administrations in cancer therapies, and thus draw intensive attentions from researchers and pharmaceutical enterprises. Thanks to the fast development of high-throughput screening (HTS) methods, the amount of available drug combination data points has tremendously increased [1]. However, existing database DCDB, which has not been updated since 2014, covers only 1,363 drug combination annotations extracted from FDA orange books and records of clinical trials using text-mining technique, which are lack of indications of the drug combinations and quantitative dose responses. Therefore, there is an urgent need for a comprehensive database that is crucial to both experimental and computational screening of drug combinations.
+                </p>
+                <p>
+                    In this paper, we present DrugCombDB, a comprehensive database dedicated to integrating drug combinations from various data sources. Concretely, the data sources include 1) high-throughput screening assays of drug combinations, 2) external databases DCDB and ASDCD, and 3) manual curations from PubMed literature. In total, DrugCombDB includes 1,127,969 experimental data points with quantitative dose response and concentrations of drug combinations covering 561 unique drugs and 104 cancer cell lines, and 1,875 FDA approved or literature-supported drug combinations. In particular, we adopted the highest signal agent (HSA)  model and Bliss independence model to compute the scores determining the synergy or antagonism of two drugs. To facilitate the downstream usage of our data resource, we prepared multiple datasets that are ready for building prediction models of classification and regression analysis. The detailed numbers of these datasets are listed in Table 1.
+                </p>
+                <div style="padding: 8px;">
+                    <table class="zl_download_table">
+                        <tr><th>Data Source</th><th>Prepared datasets</th></tr>
+                        <tr><td><span title="1,127,969">HTS assay</span></td><td><span title="105,449">Continuous-valued dataset</span></td></tr>
+                        <tr><td><span title="1,637">External database</span></td><td><span title="140,390">Binary-valued dataset (synergy vs antagonism)</span></td></tr>
+                        <tr><td><span title="238">Manual curations</span></td><td><span title="135,004">One class dataset</span></td></tr>
+                    </table>
+                    <div class="zl_table_tips">Table.1、datasets</div>
+                </div>
+                <p>
+                    To the best of our knowledge, DrugCombDB is the first comprehensive database with the largest number of drug combinations to date. We believe it would greatly facilitate and accelerate the discovery of novel synergistic drugs for the therapy of complex diseases, especially for cancer developed drug resistance.
+                </p>
+                <div>
+                   <h2>Reference</h2>
+                    <p style="font-size: 14px; color: #666666;">
+                         [1] O’Neil J. et al. (2016). Anunbiased oncology compound screen to identify novel combination strategies. Molecular Cancer Therapeutics, 15(6), 1155–1162.
+                    </p>
+                    <p style="font-size: 14px; color: #666666;">
+                        [2] Liu Y. et al. (2014). DCDB 2.0: a major update of the drug combination database. Database (Oxford).
+                    </p>
+                </div>
                 <button class="zl_btn zl_fold" onclick="hideLearnMore()">Fold this</button>
             </div>
             <button class="zl_btn zl_learn_more" onclick="toLearnMore(this)">to learn more</button>

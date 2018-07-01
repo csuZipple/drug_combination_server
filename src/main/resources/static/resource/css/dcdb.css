@@ -36,6 +36,13 @@ header{
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background: url("../images/logo.png") center no-repeat;
+    background-size: contain;
+}
+
+.zl_logo:hover::after{
+    transform: scale(0);
 }
 
 .zl_tabs{
@@ -625,7 +632,7 @@ figure img{
     padding: 10px 10px 10px 0;
 }
 .zl_download_page p{
-    padding: 0 10px 10px 10px;
+    padding: 0 10px 10px 25px;
 }
 .zl_download_title{
     font-size: 25px;

@@ -6,6 +6,8 @@
     <meta name="author" content="zipple">
     <meta name="keywords" content="drug,combination,database">
     <title>DrugCombDB - the drug combination database</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+
     <link href="../../resource/css/reset.css" type="text/css" rel="stylesheet"/>
     <link href="../../resource/css/style.css" type="text/css" rel="stylesheet"/>
     <link href="../../resource/css/dcdb.css" type="text/css" rel="stylesheet"/>
@@ -13,7 +15,7 @@
 </head>
 <body>
     <header>
-        <a href="main.html" class="zl_logo">DrugCombDB</a>
+        <a href="main.html" class="zl_logo"></a>
         <div class="zl_tabs">
             <a href="main.html">home</a>
             <a href="browser.html">browser</a>
@@ -37,34 +39,44 @@
         <main>
             <h2><span style="color: #cccccc;padding-right: 10px;">#</span>Introduction</h2>
             <p>
-                To facilitate the downstream usage of our data resource,
-                we prepared multiple datasets that are ready for building prediction models of classification and regression analysis.
-                The detailed numbers of these datasets are listed in Table 1.
+                Drug combinations have demonstrated high efficacy and low adverse side effects compared to single drug administrations in cancer therapies, and thus draw intensive attentions from researchers and pharmaceutical enterprises. Thanks to the fast development of high-throughput screening (HTS) methods, the amount of available drug combination data points has tremendously increased [1].
+            </p>
+            <p>
+                However, existing database DCDB, which has not been updated since 2014, covers only 1,363 drug combination annotations extracted from FDA orange books and records of clinical trials using text-mining technique, which are lack of indications of the drug combinations and quantitative dose responses. Therefore, there is an urgent need for a comprehensive database that is crucial to both experimental and computational screening of drug combinations.
             </p>
 
             <h2><span style="color: #cccccc;padding-right: 10px;">#</span>Resource</h2>
             <div>
-                <table class="zl_download_table">
-                    <tr><th>Data Source</th><th>Prepared datasets</th></tr>
-                    <tr><td><a href="#!" title="1,127,969">HTS assay</a></td><td><a href="#!" title="105,449">Continuous-valued dataset</a></td></tr>
-                    <tr><td><a href="#!" title="1,637">External database</a></td><td><a href="#!" title="140,390">Binary-valued dataset (synergy vs antagonism)</a></td></tr>
-                    <tr><td><a href="#!" title="238">Manual curations</a></td><td><a href="#!" title="135,004">One class dataset</a></td></tr>
-                </table>
+                <p>
+                    To facilitate the downstream usage of our data resource,
+                    we prepared multiple datasets that are ready for building prediction models of classification and regression analysis.
+                </p>
+                <ul class="zl_ul_format">
+                    <li><a href="#!">Continuous-valued dataset</a></li>
+                    <li><a href="#!">Binary-valued dataset (synergy vs antagonism)</a></li>
+                    <li><a href="#!">One class dataset</a></li>
+                    <li><a href="#!">All</a></li>
+                </ul>
                 <div class="zl_table_tips">
-                    Table.1 、resource
+                    List.1 、resource
                 </div>
 
             </div>
+
+            <h2><span style="color: #cccccc;padding-right: 10px;">#</span>Tips</h2>
+            <p>
+                Any questions you encounter while using our dataset are welcome to ask us questions.
+            </p>
 
             <h2><span style="color: #cccccc;padding-right: 10px;">#</span>Copyright</h2>
             <p>
                 <span class="dark-red">Not available for commercial use without permission</span>
             </p>
-            <h2><span style="color: #cccccc;padding-right: 10px;">#</span>Additional</h2>
-            <p>
-                To the best of our knowledge, DrugCombDB is the first comprehensive database with the largest number of drug combinations to date.
-                We believe it would greatly facilitate and accelerate the discovery of novel synergistic drugs for the therapy of complex diseases,
-                especially for cancer developed drug resistance.
+            <h2><span style="color: #cccccc;padding-right: 10px;">#</span>Reference</h2>
+            <p style="font-size: 14px; color: #666666;">
+                [1] O’Neil J. et al. (2016). Anunbiased oncology compound screen to identify novel combination strategies. Molecular Cancer Therapeutics, 15(6), 1155–1162.
+                <br>
+                [2] Liu Y. et al. (2014). DCDB 2.0: a major update of the drug combination database. Database (Oxford).
             </p>
         </main>
     </section>
