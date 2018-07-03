@@ -1,6 +1,8 @@
 package cn.zippler.drugcombinationserver.controller;
 
+import cn.zippler.drugcombinationserver.dao.DrugNameDao;
 import cn.zippler.drugcombinationserver.dao.IntegratedDrugDao;
+import cn.zippler.drugcombinationserver.entity.DrugName;
 import cn.zippler.drugcombinationserver.entity.IntegratedDrug;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,10 +18,12 @@ import java.util.*;
 @RequestMapping("/integrate")
 public class IntegrateController {
     private IntegratedDrugDao integratedDrugDao;
+    private DrugNameDao drugNameDao;
 
     @Autowired
-    public IntegrateController(IntegratedDrugDao integratedDrugDao) {
+    public IntegrateController(IntegratedDrugDao integratedDrugDao, DrugNameDao drugNameDao) {
         this.integratedDrugDao = integratedDrugDao;
+        this.drugNameDao = drugNameDao;
     }
 
     @RequestMapping("/list")
@@ -41,17 +45,17 @@ public class IntegrateController {
 
     @RequestMapping("/search")
     @ResponseBody
-    public List<IntegratedDrug> search(@RequestParam("q")String value){
+    public List<String> search(@RequestParam("q")String value){
         long current =System.currentTimeMillis();
-        List<IntegratedDrug> integratedDrug1List = integratedDrugDao.findByDrug1NameContaining(value);
-        System.out.println("搜索第一部分耗时："+(System.currentTimeMillis()- current)+" ms");
-        if (integratedDrug1List.size()!=0){
-            return integratedDrug1List;
+        List<DrugName> drugNameList = drugNameDao.findAll();
+        List<String> result = new ArrayList<>();
+        for (DrugName d :drugNameList) {
+            if (d.getDrugName().contains(value)){
+                result.add(d.getDrugName());
+            }
         }
-        List<IntegratedDrug> integratedDrug2List = integratedDrugDao.findByDrug2NameContaining(value);
-        System.out.println("搜索两部分总耗时："+(System.currentTimeMillis()- current)+" ms");
-        integratedDrug1List.addAll(integratedDrug2List);
-        return integratedDrug1List;// TO achieve this function.
+        System.out.println("搜索耗时:"+(System.currentTimeMillis()-current)+" ms");
+        return result ;// TO achieve this function.
     }
 
     @RequestMapping("/drug1Name/{name}")

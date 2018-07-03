@@ -74,12 +74,15 @@ $(".zl_search_wrapper input").bind("input",function () {
         success: function (data) {
             console.log(data);
             $(".zl_search_tips").show();
+            let parent = $(".zl_search_tips ul");
+            parent.empty("");
             if (data.length!==0){
                 $.each(data,function (index, ele) {
                     createSearchTips(ele);
                 });
             }else{
-                createSearchTips("没有相关内容")
+                let tips = "<li>Do not found this drug</li>";
+                parent.append($(tips))
             }
         },
     });
@@ -87,11 +90,10 @@ $(".zl_search_wrapper input").bind("input",function () {
 
 function createSearchTips(data) {
     let parent = $(".zl_search_tips ul");
-    parent.empty("");
     console.log(typeof data);
-    if ((typeof (data))!=="string") {
-        let drug1name = changeSpace(data.drug1Name);
-        let tips = "<li><a href="+"./individual_drug_detail.html?id="+data.id+"&drug1Name="+drug1name+">"+data.drug1Name+"</a></li>";
+    if (typeof data ==="string") {
+        let drug1name = changeSpace(data);
+        let tips = "<li><a href="+"./individual_drug_detail.html?drug1Name="+drug1name+">"+drug1name+"</a></li>";
         parent.append($(tips))
     }else{
        console.log("no searching data founded.")

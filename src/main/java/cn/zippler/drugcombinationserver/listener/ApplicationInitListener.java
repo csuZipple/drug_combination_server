@@ -9,6 +9,7 @@ public class ApplicationInitListener implements ApplicationListener<ContextRefre
     public void onApplicationEvent(ContextRefreshedEvent event) {
         System.out.println("init the application");
         InitService service = event.getApplicationContext().getBean(InitService.class);
-        service.getAllDrugName();
+//        service.getAllDrugName();// cancel the annotation when in product environment
+        System.out.println("finished start up.");
     }
 }

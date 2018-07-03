@@ -37,12 +37,20 @@ public class InitService {
                 result.add(drug2name);
             }
         }
-        System.out.println("find all successfully.then store the data.");
-        for (String drugname:result) {
-            DrugName drug = new DrugName();
-            drug.setDrugName(drugname);
-            drugNameDao.saveAndFlush(drug);
+        List<DrugName> drugNameList = drugNameDao.findAll();
+        if (drugNameList.size()==result.size()){
+            System.out.println("the data drug name is not changed.");
+        }else{
+            System.out.println("find all successfully.then store the data.");
+            //clear the table.
+            drugNameDao.deleteAll();
+            for (String drugname:result) {
+                DrugName drug = new DrugName();
+                drug.setDrugName(drugname);
+                drugNameDao.saveAndFlush(drug);
+            }
         }
+
 
         System.out.println("the request /getAllDrugName/ total cost:"+(System.currentTimeMillis()-current)+" ms");
     }
