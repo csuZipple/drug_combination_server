@@ -49,7 +49,7 @@ public class IntegrateController {
             return integratedDrug1List;
         }
         List<IntegratedDrug> integratedDrug2List = integratedDrugDao.findByDrug2NameContaining(value);
-        System.out.println("搜索总耗时："+(System.currentTimeMillis()- current)+" ms");
+        System.out.println("搜索两部分总耗时："+(System.currentTimeMillis()- current)+" ms");
         integratedDrug1List.addAll(integratedDrug2List);
         return integratedDrug1List;// TO achieve this function.
     }

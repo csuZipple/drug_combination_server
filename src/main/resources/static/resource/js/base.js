@@ -53,6 +53,7 @@ function hideLearnMore() {
 
 function onSubmit() {
     //get values
+    // send emails.
     //reset input after be submitted
 }
 
@@ -89,15 +90,21 @@ function createSearchTips(data) {
     parent.empty("");
     console.log(typeof data);
     if ((typeof (data))!=="string") {
-        let tips = "<li><a href="+"./individual_drug_detail.html?id="+data.id+"&drug1Name="+data.drug1Name+">"+data.drug1Name+"</a></li>";
+        let drug1name = changeSpace(data.drug1Name);
+        let tips = "<li><a href="+"./individual_drug_detail.html?id="+data.id+"&drug1Name="+drug1name+">"+data.drug1Name+"</a></li>";
         parent.append($(tips))
     }else{
-        let tips = "<li><a href="+"./individual_drug_detail.html?id="+data.id+"&drug1Name="+data.drug1Name+"></a></li>";
-        parent.append($(tips))
+       console.log("no searching data founded.")
     }
 
 }
 
+function changeSpace(str) {
+    return str.replace(/\s+/g, "%20");
+}
+function unchangeSpace(str) {
+   return str.replace(/%20/g," ");
+}
 /* about internet request .*/
 function loadDrugPage(page, size) {
     let root = rootUrl+"/integrate/page";
@@ -138,7 +145,9 @@ function loadDrugPage(page, size) {
 }
 
 function createRow(element) {
-    let row = "<tr><td><a href="+"./individual_drug_detail.html?id="+element.id+"&drug1Name="+element.drug1Name+">"+element.drug1Name+"</a></td><td><a href="+"./individual_drug_detail.html?id="+element.id+"&drug1Name="+element.drug2Name+">"+element.drug2Name+"</a></td><td>"+element.conc1+"</td><td>"+element.conc2+"</td><td>"+element.growth+"</td><td>"+element.cellline+"</td><td><a href="+"./drug_origin_data.html?fid="+element.fid+"&source="+element.source+">"+element.source+"</a></td></tr>";
+    let drug1name = changeSpace(element.drug1Name);
+    let drug2name = changeSpace(element.drug2Name);
+    let row = "<tr><td><a href="+"./individual_drug_detail.html?id="+element.id+"&drug1Name="+drug1name+">"+drug1name+"</a></td><td><a href="+"./individual_drug_detail.html?id="+element.id+"&drug1Name="+drug2name+">"+drug2Name+"</a></td><td>"+element.conc1+"</td><td>"+element.conc2+"</td><td>"+element.growth+"</td><td>"+element.cellline+"</td><td><a href="+"./drug_origin_data.html?fid="+element.fid+"&source="+element.source+">"+element.source+"</a></td></tr>";
     $(".zl_table").append($(row));
 }
 
@@ -171,6 +180,6 @@ function getParamFromUrl(parameter) {
     let reg = new RegExp("(^|&)"+ parameter +"=([^&]*)(&|$)");
     let r = window.location.search.substr(1).match(reg);
     if(r!=null && r[2]!=="")
-        return  r[2];
+        return  unchangeSpace(r[2]);
     return null;
 }
